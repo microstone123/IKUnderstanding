@@ -38,5 +38,15 @@
         android:layout_marginTop="54dp"
         android:onClick="fenci"
         android:text="Button" />
+    
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:onClick="setExt"
+        android:text="setExt" />
 
 </RelativeLayout>

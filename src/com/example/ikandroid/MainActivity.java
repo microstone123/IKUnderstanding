@@ -8,6 +8,7 @@ import org.wltea.analyzer.core.Lexeme;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ public class MainActivity extends FragmentActivity {
 
 	private EditText etquestion = null;
 	private TextView tvanswer = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,9 +27,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	public void fenci(View view) throws IOException {
-
 		String s = "";
-
 		// 独立Lucene实现
 		StringReader re = new StringReader(etquestion.getText().toString());
 		IKSegmenter ik = new IKSegmenter(re, true);
@@ -37,7 +37,11 @@ public class MainActivity extends FragmentActivity {
 		}
 		tvanswer.append(s + "\n");
 		etquestion.setText("");
+	}
 
+	public void setExt(View view) throws IOException {
+		FileUtils.writeProperties(this, "ext.dic");
+		tvanswer.setText(FileUtils.getReadFile(this, "ext.dic"));
 	}
 
 }
