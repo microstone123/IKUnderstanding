@@ -1,14 +1,9 @@
 package com.example.ikandroid;
 
 import java.io.IOException;
-import java.io.StringReader;
-
-import org.wltea.analyzer.core.IKSegmenter;
-import org.wltea.analyzer.core.Lexeme;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,15 +22,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	public void fenci(View view) throws IOException {
-		String s = "";
-		// 独立Lucene实现
-		StringReader re = new StringReader(etquestion.getText().toString());
-		IKSegmenter ik = new IKSegmenter(re, true);
-		Lexeme lex = null;
-		while ((lex = ik.next()) != null) {
-			s = s + lex.getLexemeText() + "|";
-		}
-		tvanswer.append(s + "\n");
+		tvanswer.append(IKAnalyzerHelper.getAnalyWord(etquestion.getText().toString()) + "\n");
 		etquestion.setText("");
 	}
 
