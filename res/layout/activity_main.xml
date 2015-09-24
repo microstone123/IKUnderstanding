@@ -38,12 +38,22 @@
         android:layout_marginTop="54dp"
         android:onClick="fenci"
         android:text="Button" />
-    
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:onClick="onBtnClick"
+        android:text="跳转" />
+
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/button4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
         android:onClick="setExt"
@@ -55,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/button2"
         android:layout_marginLeft="17dp"
-        android:layout_toRightOf="@+id/button1"
+        android:layout_toRightOf="@+id/button4"
         android:text="检索" />
 
 </RelativeLayout>

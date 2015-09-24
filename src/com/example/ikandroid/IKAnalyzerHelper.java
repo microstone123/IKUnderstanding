@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class IKAnalyzerHelper {
 	
-	public static final String IKANALY_SEPARATOR = "|";
+	public static final String IKANALY_SEPARATOR = ";";
 
 	public static String getAnalyWord(String word) {
 		String s = "";

@@ -25,37 +25,38 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	private EditText etquestion = null;
 	private TextView tvanswer = null;
-	static String KeyWords="";
-	static String KeyVerbs="";
+	static String KeyWords = "";
+	static String KeyVerbs = "";
 	static public DbUtils dbUtils;
 	private DBHelper dBHelper;
-	static String [] KeywordList = new String [10];
-	static String [] KeyverbList = new String [10];
-	
+	static String[] KeywordList = new String[10];
+	static String[] KeyverbList = new String[10];
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		etquestion = (EditText) super.findViewById(R.id.editText1);
-		findViewById(R.id.button3).setOnClickListener(this);;
+		findViewById(R.id.button3).setOnClickListener(this);
+		;
 		tvanswer = (TextView) super.findViewById(R.id.textView1);
-		
-//		Log.e("File Path", "File Path:"+FileUtils.getSDCardRootPath("com.example.ikandroid"));
-		
-//		FileUtils.writeProperties(this, "keywords.dic");
-		KeyWords=FileUtils.getReadFile(getApplicationContext(), "keywords.dic");
-		Log.e("KeyWords", "KeyWords:"+KeyWords);
-		
-//		FileUtils.writeProperties(this, "keyverbs.dic");
-		KeyVerbs=FileUtils.getReadFile(getApplicationContext(), "keyverbs.dic");		
-		Log.e("KeyVerbs", "KeyVerbs:"+KeyVerbs);
-		
-		if(DBHelper.deleteDatabase(this,"exploration.db"))
+
+		// Log.e("File Path",
+		// "File Path:"+FileUtils.getSDCardRootPath("com.example.ikandroid"));
+
+		// FileUtils.writeProperties(this, "keywords.dic");
+		KeyWords = FileUtils.getReadFile(getApplicationContext(), "keywords.dic");
+		Log.e("KeyWords", "KeyWords:" + KeyWords);
+
+		// FileUtils.writeProperties(this, "keyverbs.dic");
+		KeyVerbs = FileUtils.getReadFile(getApplicationContext(), "keyverbs.dic");
+		Log.e("KeyVerbs", "KeyVerbs:" + KeyVerbs);
+
+		if (DBHelper.deleteDatabase(this, "exploration.db"))
 			Log.e("DB Delete", "DB Delete:");
-		
-		
+
 		dbUtils = DBHelper.createDb(this);
-		
+
 		try {
 
 			dbUtils.dropDb();
@@ -64,83 +65,89 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		executeAssetsSQL();
-		
-		
+
 	}
+
 	public void onClick(View view) {
-		
+
 		switch (view.getId()) {
-		case R.id.button3: 
+		case R.id.button3:
 			FindInfo(KeywordList);
 			FindAction(KeyverbList);
-			
+
 			break;
 		default:
 			break;
 		}
-		
+
 	}
+
+	public void onBtnClick(View view) throws IOException {
+
+		startActivity(new Intent(this, SecondActivity.class));
+
+	}
+
 	public void fenci(View view) throws IOException {
-		
+
 		tvanswer.append(IKAnalyzerHelper.getAnalyWord(etquestion.getText().toString()) + "\n");
-		
+
 		etquestion.setText("");
-		
+
 	}
-	
+
 	public void setExt(View view) throws IOException {
-		
+
 		FileUtils.writeProperties(this, "ext.dic");
 		tvanswer.setText(FileUtils.getReadFile(this, "ext.dic"));
 	}
-	public void FindAction(String [] Verbs){
-		
-		if(Verbs[0].compareTo("介绍")==0){
-			
+
+	public void FindAction(String[] Verbs) {
+
+		if (Verbs[0].compareTo("介绍") == 0) {
+
 		}
-		
-		
+
 	}
-	
-	
-	public void FindInfo(String [] Nouns){
-		
+
+	public void FindInfo(String[] Nouns) {
+
 		Cursor cursor = null;
-		String queryString="select * from test1";
-		Log.e("findInfo","findInfo Enter");
-//		for(int k=0;k<Nouns.length;k++){
-			
-			if(Nouns[0].compareTo("空调")==0){
-				queryString.replace("*", "AirConditioner");
+		String queryString = "select * from test1";
+		Log.e("findInfo", "findInfo Enter");
+		// for(int k=0;k<Nouns.length;k++){
+
+		if (Nouns[0].compareTo("空调") == 0) {
+			queryString.replace("*", "AirConditioner");
+		}
+
+		try {
+			cursor = dbUtils.execQuery(queryString);
+			Log.e("execQuery", "execQuery Enter");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			while (cursor.moveToNext()) {
+				String productname = cursor.getString(0); // 获取第一列的值,第一列的索引从0开始
+				// int productid = cursor.getInt(1);
+				Log.e("execQuery", "execQuery:" + productname);
+				// Log.e("execQuery", "execQuery:"+productid);
 			}
-			
-			try{
-				 cursor = dbUtils.execQuery(queryString);
-				 Log.e("execQuery","execQuery Enter");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try{
-				while (cursor.moveToNext()){
-					String productname = cursor.getString(0); //获取第一列的值,第一列的索引从0开始
-	//				int productid = cursor.getInt(1);
-					Log.e("execQuery", "execQuery:"+productname);
-	//				Log.e("execQuery", "execQuery:"+productid);
-				}
-			}catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-//		}
-			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// }
+
 		cursor.close();
 
 	}
-		
+
 	private void executeAssetsSQL() {
 		BufferedReader in = null;
 		try {
@@ -151,30 +158,30 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			String line;
 			String buffer = "";
 
-//			dbUtils.execNonQuery("update sqlite_sequence SET seq = 0 where name ='test1'");//自增长ID为0
-			
+			// dbUtils.execNonQuery("update sqlite_sequence SET seq = 0 where name ='test1'");//自增长ID为0
+
 			while ((line = in.readLine()) != null) {
 				buffer += line;
-				if (line.trim().endsWith(";")){
+				if (line.trim().endsWith(";")) {
 					dbUtils.execNonQuery(buffer.replace(";", ""));
 					buffer = "";
 				}
 			}
-			
+
 		} catch (Exception e) {
-			
+
 			Log.e("db-error", e.toString());
-			
+
 		} finally {
 			try {
 				if (in != null)
 					in.close();
 			} catch (IOException e) {
-				
+
 				Log.e("db-error", e.toString());
-				
+
 			}
 		}
 	}
-	
+
 }
