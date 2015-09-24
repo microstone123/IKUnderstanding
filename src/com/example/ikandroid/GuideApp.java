@@ -23,7 +23,6 @@ public class GuideApp extends Application {
 				getNounsInfo();
 			};
 		}.start();
-
 	}
 
 	private void getNounsInfo() {
