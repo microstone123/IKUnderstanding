@@ -49,4 +49,13 @@
         android:onClick="setExt"
         android:text="setExt" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_marginLeft="17dp"
+        android:layout_toRightOf="@+id/button1"
+        android:text="检索" />
+
 </RelativeLayout>

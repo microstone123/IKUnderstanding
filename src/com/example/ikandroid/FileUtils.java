@@ -1,5 +1,6 @@
 package com.example.ikandroid;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,23 +10,41 @@ import java.util.Properties;
 import org.apache.http.util.EncodingUtils;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 public class FileUtils {
 
+	public static String getSDCardRootPath(String dirName) {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+			return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + dirName;
+			
+		} else {
+			return null;
+		}
+	}
+	public static String getRootPathById(Context context, String dirName) {
+		String rootPath = null;
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+
+			rootPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
+					+ context.getPackageName() + File.separator + dirName + File.separator;
+		} else {
+			rootPath = context.getCacheDir().getAbsolutePath() + File.separator + dirName + File.separator;
+		}
+		File dir = new File(rootPath);
+		dir.mkdirs();
+		return rootPath;
+	}
+
 	public static String getReadFile(Context context, String fileName) {
 		String res = "";
 		try {
-			// 得到资源中的Raw数据流
-			InputStream in = context.getClass().getClassLoader().getResourceAsStream("ext.dic");
-			// 得到数据的大小
+			InputStream in = context.getClass().getClassLoader().getResourceAsStream(fileName);
 			int length = in.available();
 			byte[] buffer = new byte[length];
-			// 读取数据
 			in.read(buffer);
-			// 依test.txt的编码类型选择合适的编码，如果不调整会乱码
 			res = EncodingUtils.getString(buffer, "UTF-8");
-			// 关闭
 			in.close();
 
 		} catch (Exception e) {
@@ -34,7 +53,6 @@ public class FileUtils {
 		return res;
 	}
 
-	// 写数据
 	public static boolean writeFile(Context context, String fileName, String writestr) throws IOException {
 		boolean isWrite = false;
 		try {
