@@ -41,17 +41,13 @@ public class SecondActivity extends FragmentActivity {
 
 	@OnClick(R.id.btn3)
 	public void jiancedsds(View v) {
-		String[] str = null;
+		String str1 = "";
 		for (int i = 0; i < keyStr.length; i++) {
-			str = ((GuideApp) getApplication()).nounsHash.get(keyStr[i]);
-			if (str != null)
-				break;
+			NounsInfo info = ((GuideApp) getApplication()).nounsHash.get(keyStr[i]);
+			if (info != null)
+				str1 = str1 + info.getName() + info.getModel() + "\n";
 		}
-		if (str != null) {
-			if (str.length == 3) {
-				jiance_tv.setText(StringUtils.join(str));
-			}
-		}
+		jiance_tv.setText(str1);
 
 	}
 

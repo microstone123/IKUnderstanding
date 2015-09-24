@@ -1,0 +1,8 @@
+技术:Type:0;
+空调:Type:1;
+冰箱:Type:2;
+制冷王:Product:13;
+舒适星:Product:14;
+儿童星:Product:15;
+一晚一度电:Tech:32;
+蒸汽洗:Tech:33;
