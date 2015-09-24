@@ -2,25 +2,43 @@
 <xmlInfos>
 	<info>
 	    <name>技术</name>
-	    <model>Type:0</model>
+	    <model>Technology</model>
+	    <mark>0</mark>>
+	    <related></related>
 	</info>
 	<info>
 	    <name>空调</name>
-	    <model>Type:1</model>
+	    <model>Type</model>
+	    <mark>1</mark>
+	    <related></related>
+	</info>
+	<info>
+	    <name>冰箱</name>
+	    <model>Type</model>
+	    <mark>2</mark>
+	    <related></related>
 	</info>
 	<info>
 	    <name>制冷王</name>
-	    <model>Product:13</model>
+	    <model>Product</model>
+	    <mark>3</mark>
+	    <related>1</related>
 	</info>
 	<info>
 	    <name>舒适星</name>
-	    <model>Product:14</model>
+	    <model>Product</model>
+	    <mark>4</mark>
+	    <related>1</related>
 	</info><info>
 	    <name>儿童星</name>
-	    <model>Product:15</model>
+	    <model>Product</model>
+	    <mark>5</mark>
+	    <related>1</related>
 	</info>
 	<info>
 	    <name>一晚一度电</name>
-	    <model>Tech:32</model>
+	    <model>Technology</model>
+	    <mark>8</mark>
+	    <related></related>
 	</info>
 </xmlInfos>

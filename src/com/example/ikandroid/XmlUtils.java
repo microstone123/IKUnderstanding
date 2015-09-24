@@ -35,6 +35,12 @@ public class XmlUtils {
 				} else if (parser.getName().equals("model")) {
 					eventType = parser.next();
 					xmlInfo.setModel(parser.getText());
+				} else if (parser.getName().equals("mark")) {
+					eventType = parser.next();
+					xmlInfo.setMark(parser.getText());
+				} else if (parser.getName().equals("related")) {
+					eventType = parser.next();
+					xmlInfo.setRelated(parser.getText());
 				}
 				break;
 			case XmlPullParser.END_TAG:

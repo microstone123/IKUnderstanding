@@ -47,6 +47,7 @@
         android:layout_alignTop="@+id/btn3"
         android:layout_toRightOf="@+id/btn3"
         android:gravity="center_vertical"
+        android:text="[产品][类型][技术]"
         android:paddingLeft="10dp" />
 
 </RelativeLayout>
